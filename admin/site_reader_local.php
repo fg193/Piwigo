@@ -73,6 +73,8 @@ function get_elements($path)
     {
       if ($node == '.' or $node == '..') continue;
 
+      if (basename($node)[0] == '.') continue; // ignore hidden files and directories
+
       if (is_file($path.'/'.$node))
       {
         $extension = strtolower(get_extension($node));
