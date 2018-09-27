@@ -97,7 +97,7 @@ function get_elements($path)
       else if (is_dir($path.'/'.$node)
                and $node != 'pwg_high'
                and $node != 'pwg_representative'
-               and $node != 'pwg_format'
+               and $node != $conf['format_dir']
                and $node != 'thumbnail' )
       {
         $subdirs[] = $node;
@@ -178,7 +178,7 @@ function get_formats($path, $filename_wo_ext)
 
   $formats = array();
   
-  $base_test = $path.'/pwg_format/'.$filename_wo_ext.'.';
+  $base_test = $path.'/'.$conf['format_dir'].'/'.$filename_wo_ext.'.';
   
   foreach ($conf['format_ext'] as $ext)
   {
