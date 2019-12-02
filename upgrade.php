@@ -119,9 +119,7 @@ function print_time($message)
 //   echo $upgrade_id, '<br>';
 // }
 
-// +-----------------------------------------------------------------------+
-// |                             language                                  |
-// +-----------------------------------------------------------------------+
+// TODO: double kill
 include(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
 $languages = new languages('utf-8');
 if (isset($_GET['language']))
