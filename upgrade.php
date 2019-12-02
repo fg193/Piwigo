@@ -145,6 +145,7 @@ else
   }
 }
 
+// TODO: merge the same sections with install.php
 if ('fr_FR' == $language) {
   define('PHPWG_DOMAIN', 'fr.piwigo.org');
 }
