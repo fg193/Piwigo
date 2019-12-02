@@ -791,10 +791,17 @@ function get_default_language()
   return get_default_user_value('language', PHPWG_DEFAULT_LANGUAGE);
 }
 
+
+/** TODO:
+ * zh_CN -> zh_CN
+ * fr_CA -> fr_FR
+ * ko_KR -> ko_KR
+ * q-values
+ * asterisk
+ */
+
 /**
  * Tries to find the browser language among available languages.
- * @todo : try to match 'fr_CA' before 'fr'
- *
  * @return string
  */
 function get_browser_language()
