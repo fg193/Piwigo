@@ -170,6 +170,8 @@ include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
 include(PHPWG_ROOT_PATH . 'admin/include/languages.class.php');
 $languages = new languages('utf-8');
 
+
+// TODO: fix me!
 if (isset($_GET['language']))
 {
   $language = strip_tags($_GET['language']);
@@ -232,8 +234,9 @@ else if ('pt_BR' == $language) {
 else {
   define('PHPWG_DOMAIN', 'piwigo.org');
 }
-define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+define('PHPWG_URL', 'https://'.PHPWG_DOMAIN);
 
+// TODO: what does a guest use?
 load_language('common.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
 load_language('admin.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
 load_language('install.lang', '', array('language' => $language, 'target_charset'=>'utf-8'));
