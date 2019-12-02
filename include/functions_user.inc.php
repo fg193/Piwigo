@@ -800,6 +800,8 @@ function get_default_language()
  * asterisk
  */
 
+// https://github.com/piwigo/Piwigo/commit/6d8c172ee2e06b2f9e14f9189273403a990cdefa
+// 
 /**
  * Tries to find the browser language among available languages.
  * @return string
