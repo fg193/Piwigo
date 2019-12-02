@@ -818,7 +818,6 @@ $lang['Available on'] = '可用在';
 $lang['cancel manual order'] = '取消手动排序';
 $lang['Cancel'] = '取消';
 $lang['List'] = '列表';
-$lang['Piwigo for Android'] = 'Piwigo Android版';
 $lang['Piwigo for iOS (iPhone, iPad, iPod Touch)'] = 'Piwigo iOS版 (iPhone, iPad, iPod Touch)';
 $lang['Save manual order'] = '保存手动排序';
 $lang['Web Form'] = '浏览器';
