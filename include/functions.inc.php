@@ -738,36 +738,15 @@ function format_date($original, $show=null, $format=null)
     return l10n('N/A');
   }
 
-  if ($show === null || $show === true)
+  if ($show !== null && $show !== true && in_array('time', $show))
   {
-    $show = array('day_name', 'day', 'month', 'year');
+    $print = array(IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
   }
-
-  // TODO use IntlDateFormatter for proper i18n
-
-  $print = '';
-  if (in_array('day_name', $show))
-    $print.= $lang['day'][ $date->format('w') ].' ';
-
-  if (in_array('day', $show))
-    $print.= $date->format('j').' ';
-
-  if (in_array('month', $show))
-    $print.= $lang['month'][ $date->format('n') ].' ';
-
-  if (in_array('year', $show))
-    $print.= $date->format('Y').' ';
-
-  if (in_array('time', $show))
+  else
   {
-    $temp = $date->format('H:i');
-    if ($temp != '00:00')
-    {
-      $print.= $temp.' ';
-    }
+    $print = array(IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
   }
-
-  return trim($print);
+  return IntlDateFormatter::formatObject($date, $print, get_default_language());
 }
 
 /**
