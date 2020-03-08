@@ -895,7 +895,7 @@ $infos['INFO_POSTED_DATE'] = '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
 if ($picture['current']['src_image']->is_original() and isset($picture['current']['width']) )
 {
   $infos['INFO_DIMENSIONS'] =
-    $picture['current']['width'].'*'.$picture['current']['height'];
+    $picture['current']['width'].' &times; '.$picture['current']['height'];
 }
 
 // filesize
