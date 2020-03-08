@@ -151,9 +151,24 @@ function get_exif_data($filename, $map)
     {
       if (strpos($field, ';') === false)
       {
-        if (isset($exif[$field]))
+        if (!isset($exif[$field]))
         {
-          $result[$key] = $exif[$field];
+          continue;
+        }
+
+        $result[$key] = $exif[$field];
+
+        $tokens = explode('/', $exif[$field]);
+        if (isset($tokens[1]))
+        {
+          if ($tokens[0] != 0 and $tokens[0] / $tokens[1] < 0.3)
+          {
+            $result[$key] = "1/" . round($tokens[1] / $tokens[0]);
+          }
+          else
+          {
+            $result[$key] = round($tokens[0] / $tokens[1], 2);
+          }
         }
       }
       else
@@ -187,7 +202,7 @@ function get_exif_data($filename, $map)
     {
       // in case the origin of the photo is unsecure (user upload), we remove
       // HTML tags to avoid XSS (malicious execution of javascript)
-      $result[$key] = strip_tags($value);
+      $result[$key] = htmlspecialchars($value);
     }
   }
 
