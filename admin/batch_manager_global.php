@@ -655,7 +655,7 @@ if (count($page['cat_elements_id']) > 0)
   }
 
   $query = '
-SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
+SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation,date_creation
   FROM '.IMAGES_TABLE;
 
   if ($is_category)
@@ -700,6 +700,7 @@ SELECT id,path,representative_ext,file,filesize,level,name,width,height,rotation
       $ttitle.= ' ('.$row['file'].')';
     }
 
+    $ttitle.= '<br>'.$row['date_creation'];
     $ttitle.= '<br>'.$row['width'].'&times;'.$row['height'].' '.l10n('pixels').', '.sprintf('%.2f', $row['filesize']/1024).'MB';
 
     $template->append(
