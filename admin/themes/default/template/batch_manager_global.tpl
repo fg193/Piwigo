@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
 
   categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
     filter: function(categories, options) {
-      if (this.name == 'dissociate') {
+      if (this.name == 'dissociate[]') {
         var filtered = jQuery.grep(categories, function(cat) {
           return !!associated_categories[cat.id];
         });
@@ -633,15 +633,16 @@ UL.thumbnails SPAN.wrap2 {ldelim}
 
     <!-- associate -->{* also used for "move" action *}
     <div id="action_associate" class="bulkAction">
-      <select data-selectize="categories" data-default="first" name="associate" style="width:600px"></select>
+      <select data-selectize="categories" placeholder="{'Type in a search term'|translate}"
+        name="associate[]" multiple style="width:400px"></select>
       <br>{'... or '|@translate}
-      <a href="#" data-add-album="associate" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
+      <a href="#" data-add-album="associate[]" title="{'create a new album'|@translate}">{'create a new album'|@translate}</a>
     </div>
 
     <!-- dissociate -->
     <div id="action_dissociate" class="bulkAction">
       <select data-selectize="categories" placeholder="{'Type in a search term'|translate}"
-        name="dissociate" style="width:600px"></select>
+        name="dissociate[]" multiple style="width:400px"></select>
     </div>
 
 

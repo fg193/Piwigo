@@ -33,8 +33,9 @@ if (!empty($_POST))
 trigger_notify('loc_begin_element_set_global');
 
 check_input_parameter('del_tags', $_POST, true, PATTERN_ID);
-check_input_parameter('associate', $_POST, false, PATTERN_ID);
-check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
+check_input_parameter('associate', $_POST, true, PATTERN_ID);
+check_input_parameter('dissociate', $_POST, true, PATTERN_ID);
+check_input_parameter('nb_photos_deleted', $_POST, false, PATTERN_ID);
 
 // +-----------------------------------------------------------------------+
 // |                            current selection                          |
@@ -43,8 +44,6 @@ check_input_parameter('dissociate', $_POST, false, PATTERN_ID);
 $collection = array();
 if (isset($_POST['nb_photos_deleted']))
 {
-  check_input_parameter('nb_photos_deleted', $_POST, false, '/^\d+$/');
-
   // let's fake a collection (we don't know the image_ids so we use "null", we only
   // care about the number of items here)
   $collection = array_fill(0, $_POST['nb_photos_deleted'], null);
@@ -149,52 +148,31 @@ DELETE
 
   if ('associate' == $action)
   {
-    associate_images_to_categories(
-      $collection,
-      array($_POST['associate'])
-      );
+    associate_images_to_categories($collection, $_POST['associate']);
 
     $_SESSION['page_infos'] = array(
       l10n('Information data registered in database')
       );
 
-    // let's refresh the page because we the current set might be modified
-    if ('no_album' == $page['prefilter'])
+    // let's refresh the page because the current set might be modified
+    if ('no_album' == $page['prefilter'] || 'no_virtual_album' == $page['prefilter'])
     {
       $redirect = true;
-    }
-
-    else if ('no_virtual_album' == $page['prefilter'])
-    {
-      $category_info = get_cat_info($_POST['associate']);
-      if (empty($category_info['dir']))
-      {
-        $redirect = true;
-      }
     }
   }
 
   else if ('move' == $action)
   {
-    move_images_to_categories($collection, array($_POST['associate']));
+    move_images_to_categories($collection, $_POST['associate']);
 
     $_SESSION['page_infos'] = array(
       l10n('Information data registered in database')
       );
 
-    // let's refresh the page because we the current set might be modified
-    if ('no_album' == $page['prefilter'])
+    // let's refresh the page because the current set might be modified
+    if ('no_album' == $page['prefilter'] || 'no_virtual_album' == $page['prefilter'])
     {
       $redirect = true;
-    }
-
-    else if ('no_virtual_album' == $page['prefilter'])
-    {
-      $category_info = get_cat_info($_POST['associate']);
-      if (empty($category_info['dir']))
-      {
-        $redirect = true;
-      }
     }
 
     else if (isset($_SESSION['bulk_manager_filter']['category'])
@@ -212,7 +190,7 @@ DELETE
 SELECT id
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON image_id = id
-  WHERE category_id = '.$_POST['dissociate'].'
+  WHERE category_id IN ('.implode(',', $_POST['dissociate']).')
     AND id IN ('.implode(',', $collection).')
     AND (
       category_id != storage_category_id
