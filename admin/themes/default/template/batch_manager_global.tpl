@@ -55,6 +55,12 @@ jQuery(document).ready(function() {
   var associated_categories = {$associated_categories|@json_encode};
 
   categoriesCache.selectize(jQuery('[data-selectize=categories]'), {
+    lang: {
+      'Add': '{'Create'|translate}'
+    },
+    create: function(input, callback) {
+      jQuery('#addAlbumForm input[name=category_name]').value(input);
+    },
     filter: function(categories, options) {
       if (this.name == 'dissociate[]') {
         var filtered = jQuery.grep(categories, function(cat) {
