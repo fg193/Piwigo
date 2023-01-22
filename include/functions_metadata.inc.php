@@ -159,7 +159,7 @@ function get_exif_data($filename, $map)
         $result[$key] = $exif[$field];
 
         $tokens = explode('/', $exif[$field]);
-        if (isset($tokens[1]))
+        if (isset($tokens[1]) && is_numeric($tokens[1]) && is_numeric($tokens[0]))
         {
           if ($tokens[0] != 0 and $tokens[0] / $tokens[1] < 0.3)
           {
